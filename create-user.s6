@@ -1,0 +1,30 @@
+#!/usr/bin/with-contenv sh
+
+#if [ -z "$DBOX_UID" ]; then
+#        $DBOX_UID=1000
+#        echo "DBOX_UID variable not specified, defaulting to dropbox user id ($DBOX_UID)"
+#fi
+
+#if [ -z "$DBOX_GID" ]; then
+#        $DBOX_GID=1000
+#        echo "DBOX_GID variable not specified, defaulting to dropbox user group id ($DBOX_GID)"
+#fi
+
+#check if group with given gid already exists
+_gid=$(cat /etc/group | grep ":$DBOX_GID:" | cut -d: -f1)
+echo "group name associated with given ($DBOX_GID) : ($_gid)"
+if [ -z "$_gid" ]; then
+	#echo "users using ($DBOX_GID aka $_gid) : ($list_users)"
+	echo "Creating group (gdbox) with ($DBOX_GID) gid" 
+	groupadd -g $DBOX_GID gdbox
+	_gid=$(cat /etc/group | grep ":$DBOX_GID:" | cut -d: -f1)
+fi
+
+#creating user
+echo "Creating user dbox with uid ($DBOX_UID), gid ($_gid)."
+useradd -c "Dropbox daemon account" -u $DBOX_UID -g $_gid -s /sbin/nologin dbox
+
+#adding password to user
+echo dbox:dbox_pwd | chpasswd
+#echo "removing password"
+passwd -d dbox

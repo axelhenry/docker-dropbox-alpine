@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv sh
+
+mkdir -p /home/dbox/.dropbox /home/dbox/Dropbox /home/dbox/base
+
+chown -R $DBOX_UID:$DBOX_GID /home/dbox
+#chown 755 /home/dbox/Dropbox 
