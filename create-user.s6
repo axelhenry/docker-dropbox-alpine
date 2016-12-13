@@ -1,30 +1,24 @@
 #!/usr/bin/with-contenv sh
 
-#if [ -z "$DBOX_UID" ]; then
-#        $DBOX_UID=1000
-#        echo "DBOX_UID variable not specified, defaulting to dropbox user id ($DBOX_UID)"
-#fi
+#parameters username userid groupname groupid password
+createUser () {
+        userExists=$(cat /etc/passwd | grep "$1:")
+        if [ -z "$userExists" ]; then
+                _gid=$(cat /etc/group | grep ":$4:" | cut -d: -f1)
+                echo "groupname associated with given ($4) : ($_gid)"
+                if [ -z "$_gid" ]; then
+                        echo "Creating group ($3) with ($_gid) gid"
+                        addgroup -g ${4} ${3} > /dev/null 2&>1
+                        _gid=$(cat /etc/group | grep ":$4:" | cut -d: -f1)
+                fi
 
-#if [ -z "$DBOX_GID" ]; then
-#        $DBOX_GID=1000
-#        echo "DBOX_GID variable not specified, defaulting to dropbox user group id ($DBOX_GID)"
-#fi
+                #creating user
+                echo "Creating user ($1) with uid ($2), gid ($_gid)."
+                adduser -S -G $_gid -u ${2} -H -D ${1}
 
-#check if group with given gid already exists
-_gid=$(cat /etc/group | grep ":$DBOX_GID:" | cut -d: -f1)
-echo "group name associated with given ($DBOX_GID) : ($_gid)"
-if [ -z "$_gid" ]; then
-	#echo "users using ($DBOX_GID aka $_gid) : ($list_users)"
-	echo "Creating group (gdbox) with ($DBOX_GID) gid" 
-	groupadd -g $DBOX_GID gdbox
-	_gid=$(cat /etc/group | grep ":$DBOX_GID:" | cut -d: -f1)
-fi
+		echo ${1}:${5} | chpasswd
+		passwd -d dbox
+        fi
+}
 
-#creating user
-echo "Creating user dbox with uid ($DBOX_UID), gid ($_gid)."
-useradd -c "Dropbox daemon account" -u $DBOX_UID -g $_gid -s /sbin/nologin dbox
-
-#adding password to user
-echo dbox:dbox_pwd | chpasswd
-#echo "removing password"
-passwd -d dbox
+createUser dbox $DBOX_UID gdbox $DBOX_GID dbox_pwd
