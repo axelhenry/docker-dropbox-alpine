@@ -20,12 +20,6 @@ ADD https://www.dropbox.com/download?dl=packages/dropbox.py /usr/local/bin/dropb
 
 #COPY repositories /etc/apk/repositories
 
-#RUN set -xe \
-	&& apk --no-cache add shadow python tar gnupg
-
-#RUN set -xe \
-#        && apk --no-cache add shadow ca-certificates python tar gnupg
-
 RUN set -xe \
 	&& apk --no-cache add python tar gnupg
 
@@ -43,12 +37,6 @@ RUN set -xe \
 #Delete /tmp folder
 RUN set -xe \
 	&& rm -rf /tmp /root/.gnupg
-
-#	&& chmod +x /usr/local/bin/dropbox-cli \
-#	&& echo "Installed Dropbox version:" $(cat /opt/dropbox/VERSION)
-
-#RUN set -xe \
-#        && apk --no-cache del tar curl gnupg
 
 RUN set -xe \
 	&& apk --no-cache del tar gnupg
