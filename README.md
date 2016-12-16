@@ -24,7 +24,17 @@ This fixes file permission errrors that might occur when mounting the Dropbox fi
 ````Shell
 docker run -ti -d --restart=always -v /path/to/dropbox/config/on/host:/home/dbox/.dropbox -v /path/to/dropbox/data/on/host:/home/dbox/Dropbox -e DBOX_UID=1000 -e DBOX_GID=100 --name=mydropbox axelhenry/docker-dropbox-alpine
 ````
+### Environment variables
 
+````
+DBOX_UID
+Default: 1000
+Run Dropbox with a custom user id (matching the owner of the mounted files)
+
+DBOX_GID
+Default: 1000
+Run Dropbox with a custom group id (matching the group of the mounted files)
+````
 
 ## Check dropbox' status
 
