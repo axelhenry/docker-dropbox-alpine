@@ -4,8 +4,8 @@ MAINTAINER Axel Henry <axel.durandil@gmail.com>
 
 ENV DBOX_UID 1000
 ENV DBOX_GID 1000
-#ENV PATH /opt/dropbox:/scripts:$PATH
-ENV PATH /opt/dropbox:$PATH
+ENV PATH /opt/dropbox:/scripts:$PATH
+#ENV PATH /opt/dropbox:$PATH
 ENV S6_VERSION 1.18.1.5
 
 USER root
@@ -50,10 +50,13 @@ EXPOSE 17500
 
 VOLUME ["/home/dbox/Dropbox", "/home/dbox/.dropbox"]
 
+COPY dropbox-updater.s6 /scripts/check_dropboxd_update.sh
 COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
 COPY dropbox-cli.fixattrs.s6  /etc/fix-attrs.d/00-dropbox-cli
+COPY scripts.fixattrs.s6 /etc/fix-attrs.d/01-scripts
 COPY create-user.s6 /etc/cont-init.d/01-create-user.sh
 COPY create-user-folders.s6 /etc/cont-init.d/02-create-user-folders.sh
+COPY create-cron-task.s6 /etc/cont-init.d/03-create-cron-task.sh
 #COPY bootstrap-user-sh.s6 /etc/cont-init.d/03-bootstrap-user.sh
 COPY display-dropbox-version.s6 /etc/cont-init.d/04-display-dropbox-version.sh
 #COPY fix-launch-dropbox.s6 /etc/fix-attrs.d/01-launch-dropbox
