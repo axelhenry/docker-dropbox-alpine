@@ -1,1 +1,45 @@
-#!/usr/bin/with-contenv sh
+#!/usr/bin/sh
+
+isOutdated () {
+    echo "Checking for latest Dropbox version..."
+    outdated=$(su - dbox -s /bin/sh -c "dropbox-cli status | grep \"You\'re using an old version of Dropbox.\"")
+    echo "Outdated : ($outdated)"
+    if [ -z "$outdated" ]; then
+        echo "Dropbox is up-to-date."
+        return 0;
+    else
+        echo "Dropbox is outdated, launching update..."
+        return 1;
+    fi
+}
+
+logDropboxVersions () {
+    echo "Updating Dropbox from ($cat /opt/dropbox/VERSION) to ($cat /tmp/dropbox/VERSION)"
+}
+
+downloadDropboxLatest () {
+    echo "Downloading latest Dropbox version"
+    wget "https://www.dropbox.com/download?plat=lnx.x86_64" -O /tmp/dropbox.latest.tar.gz
+    echo "Untaring latest Dropbox version"
+    tmpdir=`mktemp -d`
+    tar xzf /tmp/dropbox.latest.tar.gz - -C $tmpdir
+    mkdir -p /tmp/dropbox
+    mv $tmpdir/.dropbox-dist/* /tmp/dropbox/
+    rm -rf $tmpdir
+}
+
+replaceOldDropboxVersion () {
+    old_version=$(cat /opt/dropbox/VERSION)
+    rm -rf /opt/dropbox/*
+    mv /tmp/dropbox/* /opt/dropbox/
+    version=$(cat /opt/dropbox/VERSION)
+    echo "Dropbox successfully updated to v($version)."
+}
+
+if [ isOutdated ]; then
+    logDropboxVersions
+    downloadDropboxLatest
+    echo "Stopping dropbox service."
+
+    echo "Launching dropbox service."
+fi
