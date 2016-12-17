@@ -14,18 +14,18 @@ isOutdated () {
 }
 
 logDropboxVersions () {
-    echo "Updating Dropbox from ($cat /opt/dropbox/VERSION) to ($cat /tmp/dropbox/VERSION)"
+	old_ver=$(cat /opt/dropbox/VERSION)
+	last_ver=$(cat /tmp/dropbox/VERSION)
+    echo "Updating Dropbox from ($old_ver) to ($last_ver)"
 }
 
 downloadDropboxLatest () {
-    echo "Downloading latest Dropbox version"
-    wget "https://www.dropbox.com/download?plat=lnx.x86_64" -O /tmp/dropbox.latest.tar.gz
-    echo "Untaring latest Dropbox version"
-    tmpdir=`mktemp -d`
-    tar xzf /tmp/dropbox.latest.tar.gz - -C $tmpdir
-    mkdir -p /tmp/dropbox
-    mv $tmpdir/.dropbox-dist/* /tmp/dropbox/
-    rm -rf $tmpdir
+	tmpdir=$(mktemp -d)
+	echo "Downloading latest Dropbox version" && \
+	curl "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - -C $tmpdir && \
+    	mkdir -p /tmp/dropbox && \
+    	mv $tmpdir/.dropbox-dist/* /tmp/dropbox/ && \
+    	rm -rf $tmpdir
 }
 
 replaceOldDropboxVersion () {
@@ -37,8 +37,7 @@ replaceOldDropboxVersion () {
 }
 
 if [ isOutdated ]; then
-    logDropboxVersions
-    downloadDropboxLatest
+    downloadDropboxLatest && logDropboxVersions
     echo "Stopping dropbox service."
 
     echo "Launching dropbox service."
