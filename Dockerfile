@@ -24,7 +24,7 @@ ADD https://www.dropbox.com/download?dl=packages/dropbox.py /usr/local/bin/dropb
 #COPY repositories /etc/apk/repositories
 
 RUN set -xe \
-	&& apk --no-cache add python tar gnupg
+	&& apk --no-cache add python tar gnupg curl
 
 #Verify s6-overlay' signature
 RUN set -xe \
@@ -37,12 +37,12 @@ RUN set -xe \
 	&& mkdir -p /opt/dropbox \
 	&& tar xzfv /tmp/dropbox-linux-x86_64.tar.gz --strip 1 -C /opt/dropbox
 
-#Delete /tmp folder
+#Delete /tmp folder content
 RUN set -xe \
-	&& rm -rf /tmp /root/.gnupg
+	&& rm -rf /tmp/* /root/.gnupg
 
 RUN set -xe \
-	&& apk --no-cache del tar gnupg
+	&& apk --no-cache del gnupg
 
 WORKDIR /home/dbox
 
