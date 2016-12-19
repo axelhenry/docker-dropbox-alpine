@@ -21,6 +21,8 @@ ADD https://d1ilhw0800yew8.cloudfront.net/client/dropbox-lnx.x86_64-12.4.22.tar.
 #ADD https://www.dropbox.com/download?plat=lnx.x86_64 /tmp/dropbox-linux-x86_64.tar.gz
 ADD https://www.dropbox.com/download?dl=packages/dropbox.py /usr/local/bin/dropbox-cli
 
+#cloudfront not working right now, so copy dropbox from local
+COPY dropbox.x86_64-11.4.20/* /opt/dropbox
 #COPY repositories /etc/apk/repositories
 
 RUN set -xe \
@@ -33,9 +35,9 @@ RUN set -xe \
 	&& gpg --verify /tmp/s6.sig /tmp/s6.tar.gz \
 	&& tar xzf s6.tar.gz -C /
 
-RUN set -xe \
-	&& mkdir -p /opt/dropbox \
-	&& tar xzfv /tmp/dropbox-linux-x86_64.tar.gz --strip 1 -C /opt/dropbox
+#RUN set -xe \
+#	&& mkdir -p /opt/dropbox \
+#	&& tar xzfv /tmp/dropbox-linux-x86_64.tar.gz --strip 1 -C /opt/dropbox
 
 #Delete /tmp folder content
 RUN set -xe \
