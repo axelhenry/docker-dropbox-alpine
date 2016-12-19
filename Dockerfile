@@ -12,8 +12,8 @@ USER root
 
 #Download s6-overlay's files
 ADD https://keybase.io/justcontainers/key.asc /tmp/key.asc
-ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-amd64.tar.gz /tmp/s6.tar.gz
-ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-amd64.tar.gz.sig /tmp/s6.sig
+ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-nobin.tar.gz /tmp/s6.tar.gz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-nobin.tar.gz.sig /tmp/s6.sig
 
 #Download dropbox's files
 #testing autoupdate by downloading an old version
@@ -26,7 +26,7 @@ COPY dropbox.x86_64-11.4.20 /opt/dropbox
 #COPY repositories /etc/apk/repositories
 
 RUN set -xe \
-	&& apk --no-cache add python tar gnupg curl nginx
+	&& apk --no-cache add python tar gnupg curl
 
 #Verify s6-overlay' signature
 RUN set -xe \
@@ -71,4 +71,4 @@ COPY display-dropbox-version.s6 /etc/cont-init.d/04-display-dropbox-version.sh
 #COPY nginx.service.s6 /etc/services.d/nginx/run
 
 ENTRYPOINT ["/init"]
-CMD ["nginx"]
+#CMD ["nginx"]
