@@ -48,7 +48,7 @@ RUN set -xe \
 	&& apk --no-cache del gnupg
 
 RUN set -xe \
-	&& echo "daemon off;" >> /etc/nginx/nginx.conf
+	&& mkdir -p /etc/nginx/ && echo "daemon off;" >> /etc/nginx/nginx.conf
 
 WORKDIR /home/dbox
 
