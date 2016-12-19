@@ -2,4 +2,5 @@
 
 mkdir -p /home/dbox/.dropbox /home/dbox/Dropbox
 chown -R $DBOX_UID:$DBOX_GID /home/dbox
-#chown 755 /home/dbox/Dropbox 
+install -dm0 /home/dbox/.dropbox-dist
+#chown 755 /home/dbox/Dropbox
