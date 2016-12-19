@@ -12,8 +12,8 @@ USER root
 
 #Download s6-overlay's files
 ADD https://keybase.io/justcontainers/key.asc /tmp/key.asc
-ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-nobin.tar.gz /tmp/s6.tar.gz
-ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-nobin.tar.gz.sig /tmp/s6.sig
+ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-amd64.tar.gz /tmp/s6.tar.gz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-amd64.tar.gz.sig /tmp/s6.sig
 
 #Download dropbox's files
 #testing autoupdate by downloading an old version
