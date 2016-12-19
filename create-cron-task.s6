@@ -1,3 +1,3 @@
 #!/usr/bin/with-contenv sh
 
-(crontab -l ; echo "*/10 * * * * ./scripts/check_dropboxd_update.sh") | crontab -
+(crontab -l ; echo "*/10 * * * * /scripts/check_dropboxd_update.sh") | crontab -
