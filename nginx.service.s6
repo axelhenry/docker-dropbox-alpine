@@ -1,3 +1,0 @@
-#!/usr/bin/execlineb -P
-echo "daemon off;" >> /etc/nginx/nginx.conf
-nginx

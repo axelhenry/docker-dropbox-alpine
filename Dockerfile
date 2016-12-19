@@ -47,6 +47,9 @@ RUN set -xe \
 RUN set -xe \
 	&& apk --no-cache del gnupg
 
+RUN set -xe \
+	&& echo "daemon off;" >> /etc/nginx/nginx.conf
+
 WORKDIR /home/dbox
 
 EXPOSE 17500
@@ -65,6 +68,7 @@ COPY create-user-folders.s6 /etc/cont-init.d/02-create-user-folders.sh
 #COPY bootstrap-user-sh.s6 /etc/cont-init.d/03-bootstrap-user.sh
 COPY display-dropbox-version.s6 /etc/cont-init.d/04-display-dropbox-version.sh
 #COPY fix-launch-dropbox.s6 /etc/fix-attrs.d/01-launch-dropbox
-COPY nginx.service.s6 /etc/services.d/nginx/run
+#COPY nginx.service.s6 /etc/services.d/nginx/run
 
 ENTRYPOINT ["/init"]
+CMD ["nginx"]
