@@ -1,0 +1,13 @@
+MANIFEST.in
+Makefile
+README
+dropbox_sqlite_ext.c
+dropbox_sqlite_ext.h
+setup.py
+dropbox_sqlite_ext/__init__.py
+dropbox_sqlite_ext.egg-info/PKG-INFO
+dropbox_sqlite_ext.egg-info/SOURCES.txt
+dropbox_sqlite_ext.egg-info/dependency_links.txt
+dropbox_sqlite_ext.egg-info/not-zip-safe
+dropbox_sqlite_ext.egg-info/top_level.txt
+test/__init__.py
