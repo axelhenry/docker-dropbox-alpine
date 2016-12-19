@@ -17,7 +17,7 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION
 
 #Download dropbox's files
 #testing autoupdate by downloading an old version
-ADD https://d1ilhw0800yew8.cloudfront.net/client/dropbox-lnx.x86_64-12.4.22.tar.gz /tmp/dropbox-linux-x86_64.tar.gz
+#ADD https://d1ilhw0800yew8.cloudfront.net/client/dropbox-lnx.x86_64-12.4.22.tar.gz /tmp/dropbox-linux-x86_64.tar.gz
 #ADD https://www.dropbox.com/download?plat=lnx.x86_64 /tmp/dropbox-linux-x86_64.tar.gz
 ADD https://www.dropbox.com/download?dl=packages/dropbox.py /usr/local/bin/dropbox-cli
 
