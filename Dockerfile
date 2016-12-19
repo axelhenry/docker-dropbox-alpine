@@ -53,7 +53,7 @@ EXPOSE 17500
 
 VOLUME ["/home/dbox/Dropbox", "/home/dbox/.dropbox"]
 
-COPY dropbox-updater.s6 /scripts/check_dropboxd_update.sh
+COPY dropbox-updater.s6 /scripts/check_dropboxd_update
 COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
 #COPY dropbox-user.service.exec.s6 /etc/services.d/dropbox/run
 #COPY down.service.s6 /etc/services.d/dropbox@dbox/down
