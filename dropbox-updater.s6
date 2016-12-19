@@ -22,7 +22,7 @@ logDropboxVersions () {
 downloadDropboxLatest () {
 	   tmpdir=$(mktemp -d)
 	   echo "Downloading latest Dropbox version" && \
-	   curl "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - -C $tmpdir && \
+	   curl -L "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - -C $tmpdir && \
        mkdir -p /tmp/dropbox && \
        mv $tmpdir/.dropbox-dist/* /tmp/dropbox/ && \
        rm -rf $tmpdir
