@@ -47,9 +47,6 @@ RUN set -xe \
 RUN set -xe \
 	&& apk --no-cache del gnupg
 
-RUN set -xe \
-	&& mkdir -p /etc/nginx/ && echo "daemon off;" >> /etc/nginx/nginx.conf
-
 WORKDIR /home/dbox
 
 EXPOSE 17500
@@ -71,4 +68,3 @@ COPY display-dropbox-version.s6 /etc/cont-init.d/04-display-dropbox-version.sh
 #COPY nginx.service.s6 /etc/services.d/nginx/run
 
 ENTRYPOINT ["/init"]
-#CMD ["nginx"]
