@@ -55,7 +55,7 @@ VOLUME ["/home/dbox/Dropbox", "/home/dbox/.dropbox"]
 
 COPY dropbox-updater.s6 /scripts/check_dropboxd_update.sh
 COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
-COPY down.service.s6 /etc/services.d/dropbox@dbox/down
+#COPY down.service.s6 /etc/services.d/dropbox@dbox/down
 COPY dropbox-cli.fixattrs.s6  /etc/fix-attrs.d/00-dropbox-cli
 COPY scripts.fixattrs.s6 /etc/fix-attrs.d/01-scripts
 COPY create-user.s6 /etc/cont-init.d/01-create-user.sh
