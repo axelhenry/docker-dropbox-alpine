@@ -22,7 +22,7 @@ ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION
 ADD https://www.dropbox.com/download?dl=packages/dropbox.py /usr/local/bin/dropbox-cli
 
 #cloudfront not working right now, so copy dropbox from local
-COPY dropbox.x86_64-11.4.20/* /opt/dropbox
+COPY dropbox.x86_64-11.4.20 /opt/dropbox
 #COPY repositories /etc/apk/repositories
 
 RUN set -xe \
