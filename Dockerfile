@@ -12,8 +12,8 @@ USER root
 
 #Download s6-overlay's files
 ADD https://keybase.io/justcontainers/key.asc /tmp/key.asc
-ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-amd64.tar.gz /tmp/s6.tar.gz
-ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-amd64.tar.gz.sig /tmp/s6.sig
+ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-nobin.tar.gz /tmp/s6.tar.gz
+ADD https://github.com/just-containers/s6-overlay/releases/download/v$S6_VERSION/s6-overlay-nobin.tar.gz.sig /tmp/s6.sig
 
 #Download dropbox's files
 #testing autoupdate by downloading an old version
@@ -54,7 +54,8 @@ EXPOSE 17500
 VOLUME ["/home/dbox/Dropbox", "/home/dbox/.dropbox"]
 
 COPY dropbox-updater.s6 /scripts/check_dropboxd_update.sh
-COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
+#COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
+COPY dropbox-user.service.exec.s6 /etc/services.d/dropbox@dbox/run
 #COPY down.service.s6 /etc/services.d/dropbox@dbox/down
 COPY dropbox-cli.fixattrs.s6  /etc/fix-attrs.d/00-dropbox-cli
 COPY scripts.fixattrs.s6 /etc/fix-attrs.d/01-scripts
