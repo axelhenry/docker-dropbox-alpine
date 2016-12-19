@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv sh
+#!/usr/bin/sh
 
 isOutdated () {
     echo "Checking for latest Dropbox version..."
@@ -56,11 +56,12 @@ startDropboxService () {
 }
 
 if [ isOutdated ]; then
-    downloadDropboxLatest && logDropboxVersions
-    echo "Stopping dropbox service..."
-    stopRunningService
-    echo "Replacing dropbox files..."
-    replaceOldDropboxVersion
-    echo "Launching dropbox service..."
+    downloadDropboxLatest && \
+    logDropboxVersions && \
+    echo "Stopping dropbox service..." && \
+    stopRunningService && \
+    echo "Replacing dropbox files..." && \
+    replaceOldDropboxVersion && \
+    echo "Launching dropbox service..." && \
     startDropboxService
 fi
