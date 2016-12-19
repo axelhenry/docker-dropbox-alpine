@@ -43,9 +43,7 @@ stopRunningService () {
     #get pid for dropbox process, then kill it
     pid=$(pgrep -f "dropbox start -i")
     echo "dropboxd pid : ($pid)"
-    if [ -z "$pid" ]; then
-        kill -9 $pid
-    fi
+    kill -9 $pid
 }
 
 startDropboxService () {
