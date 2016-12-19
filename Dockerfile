@@ -35,9 +35,10 @@ RUN set -xe \
 	&& gpg --verify /tmp/s6.sig /tmp/s6.tar.gz \
 	&& tar xzf s6.tar.gz -C /
 
-#RUN set -xe \
+RUN set -xe \
 #	&& mkdir -p /opt/dropbox \
 #	&& tar xzfv /tmp/dropbox-linux-x86_64.tar.gz --strip 1 -C /opt/dropbox
+	&& chmod -R 755 /opt/dropbox
 
 #Delete /tmp folder content
 RUN set -xe \
