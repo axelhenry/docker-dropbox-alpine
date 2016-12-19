@@ -38,16 +38,26 @@ replaceOldDropboxVersion () {
 
 stopRunningService () {
     echo "Stopping running dropbox service."
+    #forbid anyone except root to read or execute files inside drobpbox
+    chmod 700 /opt/dropbox
+    #get pid for dropbox process, then kill it
+    pid=$(ps aux | grep zeitgeist | awk {'print $2'})
+    echo "dropboxd pid : ($pid)"
+    kill -9 $pid
 }
 
 startDropboxService () {
     echo "Starting dropbox service."
+    #releasing "lock" on dropbox folder
+    chmod -R 755 /opt/dropbox
 }
 
 if [ isOutdated ]; then
     downloadDropboxLatest && logDropboxVersions
-    echo "Stopping dropbox service."
+    echo "Stopping dropbox service..."
     stopRunningService
+    echo "Replacing dropbox files..."
+    replaceOldDropboxVersion
+    echo "Launching dropbox service..."
     startDropboxService
-    echo "Launching dropbox service."
 fi
