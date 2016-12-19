@@ -26,7 +26,7 @@ COPY dropbox.x86_64-11.4.20 /opt/dropbox
 #COPY repositories /etc/apk/repositories
 
 RUN set -xe \
-	&& apk --no-cache add python tar gnupg curl
+	&& apk --no-cache add python tar gnupg curl nginx
 
 #Verify s6-overlay' signature
 RUN set -xe \
@@ -57,8 +57,8 @@ EXPOSE 17500
 VOLUME ["/home/dbox/Dropbox", "/home/dbox/.dropbox"]
 
 COPY dropbox-updater.s6 /scripts/check_dropboxd_update.sh
-#COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
-COPY dropbox-user.service.exec.s6 /etc/services.d/dropbox/run
+COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
+#COPY dropbox-user.service.exec.s6 /etc/services.d/dropbox/run
 #COPY down.service.s6 /etc/services.d/dropbox@dbox/down
 COPY dropbox-cli.fixattrs.s6  /etc/fix-attrs.d/00-dropbox-cli
 COPY scripts.fixattrs.s6 /etc/fix-attrs.d/01-scripts
