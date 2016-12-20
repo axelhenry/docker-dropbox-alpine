@@ -5,7 +5,7 @@ isOutdated () {
     echo "Checking for latest Dropbox version..."
     outdated=$(su - dbox -s /bin/sh -c "dropbox-cli status | grep \"You\'re using an old version of Dropbox.\"")
     echo "Outdated : ($outdated)"
-    if [ -z "$outdated" ]; then
+    if [ -z "${outdated}" ]; then
         echo "Dropbox is up-to-date."
         return 0;
     else
