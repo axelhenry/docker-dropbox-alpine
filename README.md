@@ -42,6 +42,6 @@ docker exec -t -i mydropbox su - dbox -c 'dropbox-cli status' -s /bin/sh
 
 ## Autoupdate
 
-Running under s6-overlay, the dropbox daemon should autoupdate flawlessly... (not tested)
+A cron task check for dropbox updates daily, and update the dropbox binaries if needed.
 
 ## Thanks
