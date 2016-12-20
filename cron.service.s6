@@ -1,1 +1,3 @@
-#!/usr/bin/with-contenv sh
+#!/bin/execlineb -P
+
+crond -f -S -l 0 -c /etc/crontabs
