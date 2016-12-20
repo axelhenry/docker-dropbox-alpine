@@ -1,1 +1,2 @@
-/scripts/check_dropboxd_update.sh false root 0755 0755
+
+/scripts/check_dropboxd_update false root 0755 0755

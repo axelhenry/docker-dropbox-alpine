@@ -53,17 +53,17 @@ EXPOSE 17500
 
 VOLUME ["/home/dbox/Dropbox", "/home/dbox/.dropbox"]
 
-COPY dropbox-updater.s6 /scripts/check_dropboxd_update
+COPY dropbox-updater.s6 /etc/periodic/15min/check_dropboxd_update
 COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
 COPY cron.service.s6 /etc/services.d/cron/run
 COPY dropbox-cli.fixattrs.s6  /etc/fix-attrs.d/00-dropbox-cli
-COPY scripts.fixattrs.s6 /etc/fix-attrs.d/01-scripts
-#COPY fix.cron.s6 /etc/fix-attrs.d/01-cron-scripts
+#COPY scripts.fixattrs.s6 /etc/fix-attrs.d/01-scripts
+COPY fix.cron.s6 /etc/fix-attrs.d/01-cron-scripts
 COPY create-user.s6 /etc/cont-init.d/01-create-user.sh
 COPY create-user-folders.s6 /etc/cont-init.d/02-create-user-folders.sh
 #COPY create-cron-task.s6 /etc/cont-init.d/03-create-cron-task.sh
 #COPY bootstrap-user-sh.s6 /etc/cont-init.d/03-bootstrap-user.sh
 COPY display-dropbox-version.s6 /etc/cont-init.d/04-display-dropbox-version.sh
-COPY cron.task /etc/crontabs/dropbox
+#COPY cron.task /etc/crontabs/root
 
 ENTRYPOINT ["/init"]
