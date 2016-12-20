@@ -26,7 +26,7 @@ COPY dropbox.x86_64-11.4.20 /opt/dropbox
 #COPY repositories /etc/apk/repositories
 
 RUN set -xe \
-	&& apk --no-cache add python tar gnupg curl
+	&& apk --no-cache add python tar gnupg curl nano
 
 #Verify s6-overlay' signature
 RUN set -xe \
