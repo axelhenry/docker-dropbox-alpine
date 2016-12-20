@@ -1,3 +1,0 @@
-#!/bin/sh
-PAR=$(dirname "$(readlink -f "$0")")
-exec "$PAR/dropbox-lnx.x86_64-11.4.20/dropboxd" "$@"
