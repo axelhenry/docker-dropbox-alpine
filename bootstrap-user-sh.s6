@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv sh
-
-ln -s /opt/dropbox/ /home/dbox/.dropbox-dist
-chown -h dbox .dropbox-dist
-chgrp -h $DBOX_GID .dropbox-dist
