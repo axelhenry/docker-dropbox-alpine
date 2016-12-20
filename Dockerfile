@@ -66,7 +66,8 @@ COPY display-dropbox-version.s6 /etc/cont-init.d/04-display-dropbox-version.sh
 COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
 #	launch crond and cron file
 COPY cron.service.s6 /etc/services.d/cron/run
-COPY dropbox-updater.s6 /etc/periodic/15min/check_dropboxd_update
+#COPY dropbox-updater.s6 /etc/periodic/15min/check_dropboxd_update
+COPY dropbox-updater.s6 /etc/periodic/daily/check_dropboxd_update
 
 
 
