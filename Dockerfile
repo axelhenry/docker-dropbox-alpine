@@ -5,7 +5,7 @@ MAINTAINER Axel Henry <axel.durandil@gmail.com>
 ENV DBOX_UID 1000
 ENV DBOX_GID 1000
 ENV PATH /opt/dropbox:$PATH
-ENV S6_VERSION 1.18.1.5
+ENV S6_VERSION 1.20.0.0
 
 USER root
 
@@ -25,25 +25,25 @@ COPY dropbox.x86_64-11.4.20.tar.gz /tmp/dropbox-linux-x86_64.tar.gz
 #COPY repositories /etc/apk/repositories
 
 RUN set -xe \
-	&& apk --no-cache add python tar gnupg curl
+    && apk --no-cache add python tar gnupg curl
 
 #Verify s6-overlay' signature
 RUN set -xe \
-	&& cd /tmp \
-	&& gpg --import /tmp/key.asc \
-	&& gpg --verify /tmp/s6.sig /tmp/s6.tar.gz \
-	&& tar xzf s6.tar.gz -C /
+    && cd /tmp \
+    && gpg --import /tmp/key.asc \
+    && gpg --verify /tmp/s6.sig /tmp/s6.tar.gz \
+    && tar xzf s6.tar.gz -C /
 
 RUN set -xe \
-	&& mkdir -p /opt/dropbox \
-	&& tar xzfv /tmp/dropbox-linux-x86_64.tar.gz --strip 1 -C /opt/dropbox
+    && mkdir -p /opt/dropbox \
+    && tar xzfv /tmp/dropbox-linux-x86_64.tar.gz --strip 1 -C /opt/dropbox
 
 #Delete /tmp folder content
 RUN set -xe \
-	&& rm -rf /tmp/* /root/.gnupg
+    && rm -rf /tmp/* /root/.gnupg
 
 RUN set -xe \
-	&& apk --no-cache del gnupg tar
+    && apk --no-cache del gnupg tar
 
 WORKDIR /home/dbox
 
@@ -62,9 +62,9 @@ COPY create-user-folders.s6 /etc/cont-init.d/02-create-user-folders.sh
 COPY display-dropbox-version.s6 /etc/cont-init.d/04-display-dropbox-version.sh
 
 #services
-#	dropbox service
+#   dropbox service
 COPY dropbox-user.service.s6 /etc/services.d/dropbox@dbox/run
-#	launch crond and cron file
+#   launch crond and cron file
 COPY cron.service.s6 /etc/services.d/cron/run
 #COPY dropbox-updater.s6 /etc/periodic/15min/check_dropboxd_update
 COPY dropbox-updater.s6 /etc/periodic/daily/check_dropboxd_update

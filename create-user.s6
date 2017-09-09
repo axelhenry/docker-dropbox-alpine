@@ -2,22 +2,22 @@
 
 #parameters username userid groupname groupid password
 createUser () {
-        userExists=$(cat /etc/passwd | grep "$1:")
+        userExists=$(grep "^$1:" /etc/passwd)
         if [ -z "${userExists}" ]; then
-                _gid=$(cat /etc/group | grep ":$4:" | cut -d: -f1)
+                _gid=$(grep ":$4:" /etc/group | cut -d: -f1)
                 echo "groupname associated with given ($4) : ($_gid)"
-                if [ -z "{$_gid}" ]; then
+                if [ -z "${_gid}" ]; then
                         echo "Creating group ($3) with ($_gid) gid"
                         addgroup -g ${4} ${3} > /dev/null 2&>1
-                        _gid=$(cat /etc/group | grep ":$4:" | cut -d: -f1)
+                        _gid=$(grep ":$4:" /etc/group | cut -d: -f1)
                 fi
 
                 #creating user
                 echo "Creating user ($1) with uid ($2), gid ($_gid)."
                 adduser -S -G $_gid -u ${2} -H -D ${1}
 
-		echo ${1}:${5} | chpasswd
-		passwd -d dbox
+                echo ${1}:${5} | chpasswd
+                passwd -d dbox
         fi
 }
 
